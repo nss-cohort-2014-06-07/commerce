@@ -1,5 +1,8 @@
 'use strict';
 
+var _ = require('lodash');
+var Mongo = require('mongodb');
+
 function Item(o){
   this.name           = o.name;
   this.dimensions     = {};
@@ -25,5 +28,38 @@ Item.prototype.save = function(cb){
   Item.collection.save(this, cb);
 };
 
+Item.all = function(cb){
+  Item.collection.find().toArray(function(err, objects){
+    var items = objects.map(function(o){
+      return changePrototype(o);
+    });
+
+    cb(items);
+  });
+};
+
+Item.findById = function(id, cb){
+  var _id = Mongo.ObjectID(id);
+
+  Item.collection.findOne({_id:_id}, function(err, obj){
+    var item = changePrototype(obj);
+
+    cb(item);
+  });
+};
+
+Item.deleteById = function(id, cb){
+  var _id = Mongo.ObjectID(id);
+
+  Item.collection.findAndRemove({_id:_id}, cb);
+};
+
 module.exports = Item;
+
+// PRIVATE FUNCTIONS ///
+
+function changePrototype(obj){
+  var item = _.create(Item.prototype, obj);
+  return item;
+}
 
