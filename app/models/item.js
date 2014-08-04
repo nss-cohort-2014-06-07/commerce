@@ -13,5 +13,17 @@ function Item(o){
   this.percentOff     = o.percentOff * 1;
 }
 
+Object.defineProperty(Item, 'collection', {
+  get: function(){return global.mongodb.collection('items');}
+});
+
+Item.prototype.cost = function(){
+  return this.msrp - (this.msrp * (this.percentOff/100));
+};
+
+Item.prototype.save = function(cb){
+  Item.collection.save(this, cb);
+};
+
 module.exports = Item;
 
