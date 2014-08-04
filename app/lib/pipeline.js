@@ -15,6 +15,7 @@ module.exports = function(app, express){
   app.get('/faq', home.faq);
 
   app.get('/items/new', items.init);
+  app.post('/items', items.create);
 
   console.log('Pipeline Configured');
 };
