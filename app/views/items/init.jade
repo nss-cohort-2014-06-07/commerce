@@ -11,6 +11,10 @@ html
         li: a(href='/') Home
         li: a(href='/about') About
         li: a(href='/faq') Faq
+        li: a(href='/items') Items
+        li: a(href='/items/new') New Item
+
+    h2 New Item
 
     form(method='post', action='/items')
       input(name='name', type='text', placeholder='iPad', autofocus=true)
