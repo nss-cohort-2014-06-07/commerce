@@ -3,7 +3,7 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var home = require('../controllers/home');
-var people = require('../controllers/people');
+var items = require('../controllers/items');
 
 module.exports = function(app, express){
   app.use(morgan('dev'));
@@ -13,8 +13,8 @@ module.exports = function(app, express){
   app.get('/', home.index);
   app.get('/about', home.about);
   app.get('/faq', home.faq);
-  app.get('/contact', home.contact);
-  app.get('/people', people.index);
+
+  app.get('/items/new', items.init);
 
   console.log('Pipeline Configured');
 };
