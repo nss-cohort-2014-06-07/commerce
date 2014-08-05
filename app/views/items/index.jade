@@ -1,42 +1,29 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    title eCommerce
-    link(rel='stylesheet', href='/css/style.css')
-  body
-    h1 eCommerce
-    nav
-      ul
-        li: a(href='/') Home
-        li: a(href='/about') About
-        li: a(href='/faq') Faq
-        li: a(href='/items') Items
-        li: a(href='/items/new') New Item
+extends ../shared/template
 
-    h2 Items
+block content
+  h2 Items
 
-    table
-      thead
-        tr
-          th Name
-          th Dimensions
-          th Weight
-          th Quantity
-          th MSRP
-          th Sale %
-          th Cost
-      tbody
-        each item in items
-          tr(style='background-color:#{item.color}')
-            td: a(href='/items/#{item._id}')= item.name
-            td
-              span l #{item.dimensions.l}in/
-              span w #{item.dimensions.w}in/
-              span h #{item.dimensions.h}in
-            td #{item.weight}lbs
-            td= item.quantity
-            td $#{item.msrp.toFixed(2)}
-            td #{item.percentOff}%
-            td $#{item.cost().toFixed(2)}
+  table
+    thead
+      tr
+        th Name
+        th Dimensions
+        th Weight
+        th Quantity
+        th MSRP
+        th Sale %
+        th Cost
+    tbody
+      each item in items
+        tr(style='background-color:#{item.color}')
+          td: a(href='/items/#{item._id}')= item.name
+          td
+            span l #{item.dimensions.l}in/
+            span w #{item.dimensions.w}in/
+            span h #{item.dimensions.h}in
+          td #{item.weight}lbs
+          td= item.quantity
+          td $#{item.msrp.toFixed(2)}
+          td #{item.percentOff}%
+          td $#{item.cost().toFixed(2)}
 
